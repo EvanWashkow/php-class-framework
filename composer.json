@@ -1,0 +1,16 @@
+{
+    "name":        "evanwashkow/php-class-framework",
+    "description": "Simple PHP class framework with autoloading capabilties",
+    "version":     "1.0.0",
+    "require": {
+        "php": ">=5.3"
+    },
+    "authors": [
+        {
+            "name":  "Evan Washkow",
+            "email": "epwashkow@gmail.com",
+            "role":  "Developer"
+        }
+    ],
+    "license": "GPL-3.0-or-later"
+}
