@@ -1,19 +1,20 @@
 <?php
+require_once( __DIR__ . "/ClassFramework/Class.php" );
 
 /**
  * Loader for the class framework library
  */
-class ClassFramework
+class ClassFramework extends \ClassFramework\Class
 {
     
     /**
      * Load a class framework component
      *
-     * @param string $component The component to load
+     * @param array|string $component The component(s) to load
      */
-    public static function Load( string $component )
+    final public static function Load( $component )
     {
-        require_once( __DIR__ . "/ClassFramework/{$component}.php" );
+        self::include( $component );
     }
 }
 ?>

@@ -6,8 +6,8 @@ namespace ClassFramework;
  *
  * By default, subcomponents are included from the folder with the same name as
  * the class current class. To modify this behavior, extend this class, and then
- * override the member functions appropriately.
- *
+ * override the member functions appropriately. 
+ * 
  * Example:
  * MyClass.php                  // class MyClass extends \ClassFramework\Class
  * MyClass/
