@@ -1,10 +1,10 @@
 <?php
-require_once( __DIR__ . "/ClassFramework/Class.php" );
+require_once( __DIR__ . "/Framework/BaseClass.php" );
 
 /**
  * Loader for the class framework library
  */
-class ClassFramework extends \ClassFramework\Class
+class Framework extends \Framework\BaseClass
 {
     
     /**
