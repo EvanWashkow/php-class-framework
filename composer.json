@@ -2,6 +2,11 @@
     "name":        "evanwashkow/php-class-framework",
     "description": "Simple PHP class framework with autoloading capabilties",
     "version":     "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/"
+        }
+    },
     "require": {
         "php": ">=5.3"
     },
