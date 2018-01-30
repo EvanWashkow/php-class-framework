@@ -15,7 +15,7 @@ namespace Framework;
  *     MyClassComponent2.php
  *     MyClassComponent3.php
  */
-class BaseClass
+class Member
 {
     
     /***************************************************************************

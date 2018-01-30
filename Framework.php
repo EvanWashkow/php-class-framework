@@ -7,7 +7,7 @@ new Framework\AutoLoader( 'Framework', __DIR__ . '/Framework' );
 /**
  * Loader for the class framework library
  */
-class Framework extends \Framework\BaseClass
+class Framework extends \Framework\Member
 {
     
     /**
