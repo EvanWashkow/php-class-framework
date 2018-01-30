@@ -32,7 +32,13 @@ class BaseClass
      */
     public static function GetID()
     {
-        return strtolower( str_replace( '\\', '.', get_called_class() ));
+        // Foo\BarBaz => Foo.BarBaz
+        $id = str_replace( '\\', '.', get_called_class() );
+        // Foo.BarBaz => Foo.Bar-Baz
+        $id = preg_replace( '/([a-z])([A-Z])/', '$1-$2', $id );
+        // Foo.Bar-Baz => foo.bar-baz
+        $id = strtolower( $id ); 
+        return $id;
     }
     
     
