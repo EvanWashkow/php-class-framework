@@ -6,7 +6,7 @@ namespace Framework;
  *
  * By default, subcomponents are included from the folder with the same name as
  * the class current class. To modify this behavior, extend this class, and then
- * override the BaseClass functions appropriately. 
+ * override the BaseClass functions appropriately.
  * 
  * Example:
  * MyClass.php                  // class MyClass extends \Framework\Class
@@ -26,7 +26,7 @@ class BaseClass
      * Return unique identifier for this class
      *
      * Useful for identifying object instances in an array, firing events, or
-     * WordPress handlers for JavaScript and CSS.
+     * WordPress handlers for actions, filters, JavaScript, and CSS.
      *
      * @return string
      */
