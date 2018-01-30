@@ -1,5 +1,8 @@
 <?php
-require_once( __DIR__ . "/Framework/BaseClass.php" );
+
+// Set up autoloader for this namespace
+require_once( __DIR__ . '/Framework/AutoLoader.php' );
+new Framework\AutoLoader( 'Framework', __DIR__ . '/Framework' );
 
 /**
  * Loader for the class framework library
