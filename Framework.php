@@ -17,4 +17,3 @@ class Framework extends \Framework\BaseClass
         self::include( $component );
     }
 }
-?>

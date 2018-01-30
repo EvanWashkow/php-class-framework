@@ -110,4 +110,3 @@ class BaseClass
         return self::getClassName();
     }
 }
-?>
