@@ -16,7 +16,12 @@ namespace Framework;
  *         MyClassSubomponent3.php
  *
  * ================================ MyClass.php ================================
+ *
+ * // Register auto-loader
  * new \Framework\AutoLoader( 'MyClass', __DIR__ . '/MyClass', __FILE__ );
+ *
+ * // Automatically loads subcomponents!
+ * \MyClass\MyClassComponent1\MyClassSubcomponent3::FunctionName;
  */
 class AutoLoader
 {
@@ -42,21 +47,21 @@ class AutoLoader
      *
      * @var string
      */
-    private $namespace;
+    protected $namespace;
     
     /**
      * Directory to load classes from (with trailing slash)
      *
      * @var string
      */
-    private $directory;
+    protected $directory;
     
     /**
      * File path of main class for the namespace (class with same name as namespace)
      *
      * @var string
      */
-    private $namespaceClassFile;
+    protected $namespaceClassFile;
     
     
     /**
@@ -97,6 +102,36 @@ class AutoLoader
         $this->namespace          = $namespace;
         $this->directory          = self::buildPath( [ $directory ] );
         $this->namespaceClassFile = $namespaceClassFile;
+        
+        // Register the class auto loader for the namespace
+        spl_autoload_register( function( string $class ) {
+            if ( 0 === strpos( $class, $this->namespace )) {
+                $this->loadClass( $class );
+            }
+        });
+    }
+    
+    
+    /**
+     * Load the class file for the class name
+     *
+     * @param string $class The class to load
+     */
+    protected function loadClass( string $class )
+    {
+        // Load the main class for the namespace
+        if ( $class === $this->namespace ) {
+            include_once( $this->namespaceClassFile );
+        }
+        
+        // Load the class: do not use require_once, which halts the script,
+        // preventing multiple autoloaders from being registered.
+        else {
+            $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
+            $pathFragments = explode( '\\', "{$relativeClass}.php" );
+            $path          = $this->directory . self::buildPath( $pathFragments );
+            include_once( $path );
+        }
     }
     
     
