@@ -71,7 +71,7 @@ class AutoLoader
      * class is not already loaded. (In most cases, this should not be needed).
      *
      * @param string $namespace          The namespace
-     * @param string $directory          Directory to load classes from
+     * @param string $directory          Directory to load namespace classes from
      * @param string $namespaceClassFile File path of main class for the namespace (class with same name as namespace)
      * @return return type
      */
@@ -124,7 +124,7 @@ class AutoLoader
             include_once( $this->namespaceClassFile );
         }
         
-        // Load the class: do not use require_once, which halts the script,
+        // Load the class. Do not use require_once, which halts the script,
         // preventing multiple autoloaders from being registered.
         else {
             $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
