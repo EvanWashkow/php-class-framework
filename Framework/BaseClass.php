@@ -9,11 +9,11 @@ namespace Framework;
  * override the BaseClass functions appropriately.
  * 
  * Example:
- * MyClass.php                  // class MyClass extends \Framework\Class
+ * MyClass.php                  // class MyClass extends \Framework\BaseClass
  * MyClass/
- *     MyClassSubcomponent1.php
- *     MyClassSubcomponent2.php
- *     MyClassSubcomponent3.php
+ *     MyClassComponent1.php
+ *     MyClassComponent2.php
+ *     MyClassComponent3.php
  */
 class BaseClass
 {
