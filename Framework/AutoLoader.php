@@ -21,6 +21,22 @@ namespace Framework;
 class AutoLoader
 {
     
+    /***************************************************************************
+    *                        STATIC (SHARED) PROPERTIES
+    ***************************************************************************/
+    
+    /**
+     * '/' or '\\' to delimit directory paths
+     *
+     * @var string
+     */
+    private static $pathDelimiter;
+    
+    
+    /***************************************************************************
+    *                             INSTANCE PROPERTIES
+    ***************************************************************************/
+    
     /**
      * The namespace
      *
@@ -41,13 +57,6 @@ class AutoLoader
      * @var string
      */
     private $namespaceClassFile;
-    
-    /**
-     * '/' or '\\' to delimit directory paths
-     *
-     * @var string
-     */
-    private $pathDelimiter;
     
     
     /**
@@ -74,36 +83,42 @@ class AutoLoader
         }
         
         // Set the directory path delimiter ('/' for unix, '\\' for windows)
-        $isUnix = preg_match( '/.*\/.*/i', $directory );
-        if ( $isUnix ) {
-            $this->pathDelimiter = '/';
-        }
-        else {
-            $this->pathDelimiter = '\\';
+        if ( !isset( self::$pathDelimiter )) {
+            $isUnix = preg_match( '/.*\/.*/i', $directory );
+            if ( $isUnix ) {
+                self::$pathDelimiter = '/';
+            }
+            else {
+                self::$pathDelimiter = '\\';
+            }
         }
         
         // Set properties
         $this->namespace          = $namespace;
-        $this->directory          = $this->addSlashes( [ $directory ] );
+        $this->directory          = self::buildPath( [ $directory ] );
         $this->namespaceClassFile = $namespaceClassFile;
     }
     
     
+    /***************************************************************************
+    *                             STATIC HELPERS
+    ***************************************************************************/
+    
     /**
-     * Add slashes to a directory / file path, adding final slash to directories
+     * Build a directory / file path, adding final slash to directories
      *
-     * @param array $paths Directory / file paths
+     * @param array $pathFragments Directory / file path fragments
      * @return string
      */
-    final protected function addSlashes( array $paths )
+    final protected static function buildPath( array $pathFragments )
     {
         // Add slashes between paths
-        $path = implode( $this->pathDelimiter, $paths );
+        $path = implode( self::$pathDelimiter, $pathFragments );
         
         // Add trailing slash to directories
         $isPHPFile = ( '.php' == substr( $path, -4 ));
         if ( !$isPHPFile ) {
-            $path .= $this->pathDelimiter;
+            $path .= self::$pathDelimiter;
         }
         
         return $path;
