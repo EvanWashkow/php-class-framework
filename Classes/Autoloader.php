@@ -19,7 +19,7 @@ namespace Classes;
  * // Automatically loads subcomponents!
  * \MyClass\MyClassComponent3::Function();
  */
-class AutoLoader
+class Autoloader
 {
     
     /***************************************************************************

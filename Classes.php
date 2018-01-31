@@ -1,8 +1,8 @@
 <?php
 
 // Set up autoloader for this namespace
-require_once( __DIR__ . '/Classes/AutoLoader.php' );
-new Classes\AutoLoader( 'Classes', __DIR__ . '/Classes' );
+require_once( __DIR__ . '/Classes/Autoloader.php' );
+new Classes\Autoloader( 'Classes', __DIR__ . '/Classes' );
 
 /**
  * Loader for the class framework library
