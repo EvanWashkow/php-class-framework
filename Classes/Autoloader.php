@@ -46,7 +46,7 @@ class Autoloader
     protected $namespace;
     
     /**
-     * Directory to load classes from (with trailing slash)
+     * Directory to load classes from (minus trailing slash)
      *
      * @var string
      */
@@ -64,7 +64,7 @@ class Autoloader
     {
         // Sanitize and Exit on bad parameters
         $namespace = trim( $namespace );
-        $directory = trim( $directory );
+        $directory = realpath( trim( $directory ));
         if ( empty( $namespace ) || empty( $directory )) {
             return;
         }
@@ -82,7 +82,7 @@ class Autoloader
         
         // Set properties
         $this->namespace = $namespace;
-        $this->directory = self::buildPath( [ $directory ] );
+        $this->directory = $directory;
         
         // Register the class auto loader for the namespace
         spl_autoload_register( function( string $class ) {
@@ -100,9 +100,13 @@ class Autoloader
      */
     protected function loadClass( string $class )
     {
+        // Build path from class
         $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
         $pathFragments = explode( '\\', "{$relativeClass}.php" );
-        $path          = $this->directory . self::buildPath( $pathFragments );
+        array_unshift( $pathFragments, $this->directory );
+        $path = self::buildPath( $pathFragments );
+        
+        // Load file (if exists)
         if ( file_exists( $path )) {
             require_once( $path );
         }
@@ -127,7 +131,7 @@ class Autoloader
         // Add trailing slash to directories
         $isPHPFile = ( '.php' == substr( $path, -4 ));
         if ( !$isPHPFile ) {
-            $path .= self::$pathDelimiter;
+            $path = realpath( $path ) . self::$pathDelimiter;
         }
         
         return $path;
