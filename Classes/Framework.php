@@ -1,5 +1,5 @@
 <?php
-namespace Framework;
+namespace Classes;
 
 /**
  * Defines a member of the class framework having subcomponents
@@ -9,13 +9,13 @@ namespace Framework;
  * override the BaseClass functions appropriately.
  * 
  * Example:
- * MyClass.php                  // class MyClass extends \Framework\BaseClass
+ * MyClass.php                  // class MyClass extends \Classes\Framework
  * MyClass/
  *     MyClassComponent1.php
  *     MyClassComponent2.php
  *     MyClassComponent3.php
  */
-class Member
+class Framework
 {
     
     /***************************************************************************

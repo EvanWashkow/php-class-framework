@@ -1,13 +1,13 @@
 <?php
 
 // Set up autoloader for this namespace
-require_once( __DIR__ . '/Framework/AutoLoader.php' );
-new Framework\AutoLoader( 'Framework', __DIR__ . '/Framework' );
+require_once( __DIR__ . '/Classes/AutoLoader.php' );
+new Classes\AutoLoader( 'Classes', __DIR__ . '/Classes' );
 
 /**
  * Loader for the class framework library
  */
-class Framework extends \Framework\Member
+class Classes extends \Classes\Framework
 {
     
     /**
