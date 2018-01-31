@@ -14,7 +14,7 @@ namespace Classes;
  * ================================ MyClass.php ================================
  *
  * // Register auto-loader
- * new \Classes\AutoLoader( 'MyClass', __DIR__ . '/MyClass', __FILE__ );
+ * new \Classes\AutoLoader( 'MyClass', __DIR__ . '/MyClass' );
  *
  * // Automatically loads subcomponents!
  * \MyClass\MyClassComponent3::Function();
@@ -52,33 +52,19 @@ class Autoloader
      */
     protected $directory;
     
-    /**
-     * File path of main class for the namespace (class with same name as namespace)
-     *
-     * @var string
-     */
-    protected $namespaceClassFile;
-    
     
     /**
      * Create a new namespace loader instance
      *
-     * You only need to specify the parent namespace class file only if that
-     * class is not already loaded. (In most cases, this should not be needed).
-     *
-     * @param string $namespace          The namespace
-     * @param string $directory          Directory to load namespace classes from
-     * @param string $namespaceClassFile File path of main class for the namespace (class with same name as namespace)
+     * @param string $namespace The namespace
+     * @param string $directory Directory to load namespace classes from
      * @return return type
      */
-    final public function __construct( string $namespace,
-                                       string $directory,
-                                       string $namespaceClassFile = '' )
+    final public function __construct( string $namespace, string $directory )
     {
         // Sanitize and Exit on bad parameters
-        $namespace          = trim( $namespace );
-        $directory          = trim( $directory );
-        $namespaceClassFile = trim( $namespaceClassFile );
+        $namespace = trim( $namespace );
+        $directory = trim( $directory );
         if ( empty( $namespace ) || empty( $directory )) {
             return;
         }
@@ -95,9 +81,8 @@ class Autoloader
         }
         
         // Set properties
-        $this->namespace          = $namespace;
-        $this->directory          = self::buildPath( [ $directory ] );
-        $this->namespaceClassFile = $namespaceClassFile;
+        $this->namespace = $namespace;
+        $this->directory = self::buildPath( [ $directory ] );
         
         // Register the class auto loader for the namespace
         spl_autoload_register( function( string $class ) {
@@ -115,20 +100,11 @@ class Autoloader
      */
     protected function loadClass( string $class )
     {
-        // Load the main class for the namespace
-        if ( $class === $this->namespace ) {
-            include_once( $this->namespaceClassFile );
-        }
-        
-        // Load the class. Do not use require_once, which halts the script,
-        // preventing multiple autoloaders from being registered.
-        else {
-            $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
-            $pathFragments = explode( '\\', "{$relativeClass}.php" );
-            $path          = $this->directory . self::buildPath( $pathFragments );
-            if ( file_exists( $path )) {
-                require_once( $path );
-            }
+        $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
+        $pathFragments = explode( '\\', "{$relativeClass}.php" );
+        $path          = $this->directory . self::buildPath( $pathFragments );
+        if ( file_exists( $path )) {
+            require_once( $path );
         }
     }
     
