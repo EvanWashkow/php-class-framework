@@ -130,7 +130,9 @@ class AutoLoader
             $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
             $pathFragments = explode( '\\', "{$relativeClass}.php" );
             $path          = $this->directory . self::buildPath( $pathFragments );
-            include_once( $path );
+            if ( file_exists( $path )) {
+                require_once( $path );
+            }
         }
     }
     
