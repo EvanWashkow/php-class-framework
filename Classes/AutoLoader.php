@@ -2,7 +2,7 @@
 namespace Classes;
 
 /**
- * Automatically load classes from the namespaced class framework
+ * Automatically load classes from the namespace directory
  * 
  * Example:
  * MyClass.php
@@ -10,10 +10,6 @@ namespace Classes;
  *     MyClassComponent1.php
  *     MyClassComponent2.php
  *     MyClassComponent3.php
- *     MyClassComponent1/
- *         MyClassSubomponent1.php
- *         MyClassSubomponent2.php
- *         MyClassSubomponent3.php
  *
  * ================================ MyClass.php ================================
  *
@@ -21,7 +17,7 @@ namespace Classes;
  * new \Classes\AutoLoader( 'MyClass', __DIR__ . '/MyClass', __FILE__ );
  *
  * // Automatically loads subcomponents!
- * \MyClass\MyClassComponent1\MyClassSubcomponent3::FunctionName;
+ * \MyClass\MyClassComponent3::Function();
  */
 class AutoLoader
 {
