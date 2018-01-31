@@ -15,7 +15,7 @@ namespace ClassFramework;
  *     MyClassComponent2.php
  *     MyClassComponent3.php
  */
-class Framework
+class FrameworkClass
 {
     
     /***************************************************************************

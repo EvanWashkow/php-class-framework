@@ -7,7 +7,7 @@ new ClassFramework\Autoloader( 'ClassFramework', __DIR__ . '/ClassFramework' );
 /**
  * Loader for the class framework library
  */
-class ClassFramework extends \ClassFramework\Framework
+class ClassFramework extends \ClassFramework\FrameworkClass
 {
     
     /**
