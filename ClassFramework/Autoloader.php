@@ -1,5 +1,5 @@
 <?php
-namespace Classes;
+namespace ClassFramework;
 
 /**
  * Automatically load classes from the namespace directory
@@ -14,7 +14,7 @@ namespace Classes;
  * ================================ MyClass.php ================================
  *
  * // Register auto-loader
- * new \Classes\AutoLoader( 'MyClass', __DIR__ . '/MyClass' );
+ * new \ClassFramework\AutoLoader( 'MyClass', __DIR__ . '/MyClass' );
  *
  * // Automatically loads subcomponents!
  * \MyClass\MyClassComponent3::Function();
