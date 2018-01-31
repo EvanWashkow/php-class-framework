@@ -30,7 +30,7 @@ class FrameworkClass
      *
      * @return string
      */
-    public static function GetID()
+    final public static function GetID()
     {
         // Foo\BarBaz => Foo.BarBaz
         $id = str_replace( '\\', '.', get_called_class() );
