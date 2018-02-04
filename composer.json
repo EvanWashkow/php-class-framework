@@ -1,7 +1,7 @@
 {
     "name":        "evanwashkow/php-class-framework",
     "description": "Simple PHP class framework with autoloading capabilties",
-    "version":     "0.0.0",
+    "version":     "1.1.0",
     "autoload": {
         "psr-4": {
             "PHP\\ClassFramework\\": "ClassFramework/"
