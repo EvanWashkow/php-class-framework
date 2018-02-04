@@ -1,5 +1,5 @@
 <?php
-namespace ClassFramework;
+namespace PHP\ClassFramework;
 
 /**
  * Defines a member of the class framework having subcomponents

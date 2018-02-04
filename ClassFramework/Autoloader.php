@@ -1,5 +1,5 @@
 <?php
-namespace ClassFramework;
+namespace PHP\ClassFramework;
 
 /**
  * Automatically load classes from the namespace directory

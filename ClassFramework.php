@@ -1,13 +1,14 @@
 <?php
+namespace PHP;
 
 // Set up autoloader for this namespace
 require_once( __DIR__ . '/ClassFramework/Autoloader.php' );
-new ClassFramework\Autoloader( 'ClassFramework', __DIR__ . '/ClassFramework' );
+new ClassFramework\Autoloader( 'PHP\\ClassFramework', __DIR__ . '/ClassFramework' );
 
 /**
  * Loader for the class framework library
  */
-class ClassFramework extends \ClassFramework\FrameworkClass
+class ClassFramework extends ClassFramework\FrameworkClass
 {
     
     /**
