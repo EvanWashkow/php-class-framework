@@ -1,5 +1,5 @@
 <?php
-namespace Classes;
+namespace ClassFramework;
 
 /**
  * Defines a member of the class framework having subcomponents
@@ -9,13 +9,13 @@ namespace Classes;
  * override the BaseClass functions appropriately.
  * 
  * Example:
- * MyClass.php                  // class MyClass extends \Classes\Framework
+ * MyClass.php                  // class MyClass extends \ClassFramework\Framework
  * MyClass/
  *     MyClassComponent1.php
  *     MyClassComponent2.php
  *     MyClassComponent3.php
  */
-class Framework
+class FrameworkClass
 {
     
     /***************************************************************************
@@ -30,7 +30,7 @@ class Framework
      *
      * @return string
      */
-    public static function GetID()
+    final public static function GetClassID()
     {
         // Foo\BarBaz => Foo.BarBaz
         $id = str_replace( '\\', '.', get_called_class() );

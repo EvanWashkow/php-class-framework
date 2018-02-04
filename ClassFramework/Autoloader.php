@@ -1,5 +1,5 @@
 <?php
-namespace Classes;
+namespace ClassFramework;
 
 /**
  * Automatically load classes from the namespace directory
@@ -14,7 +14,7 @@ namespace Classes;
  * ================================ MyClass.php ================================
  *
  * // Register auto-loader
- * new \Classes\AutoLoader( 'MyClass', __DIR__ . '/MyClass', __FILE__ );
+ * new \ClassFramework\AutoLoader( 'MyClass', __DIR__ . '/MyClass' );
  *
  * // Automatically loads subcomponents!
  * \MyClass\MyClassComponent3::Function();
@@ -46,39 +46,25 @@ class Autoloader
     protected $namespace;
     
     /**
-     * Directory to load classes from (with trailing slash)
+     * Directory to load classes from (minus trailing slash)
      *
      * @var string
      */
     protected $directory;
     
-    /**
-     * File path of main class for the namespace (class with same name as namespace)
-     *
-     * @var string
-     */
-    protected $namespaceClassFile;
-    
     
     /**
      * Create a new namespace loader instance
      *
-     * You only need to specify the parent namespace class file only if that
-     * class is not already loaded. (In most cases, this should not be needed).
-     *
-     * @param string $namespace          The namespace
-     * @param string $directory          Directory to load namespace classes from
-     * @param string $namespaceClassFile File path of main class for the namespace (class with same name as namespace)
+     * @param string $namespace The namespace
+     * @param string $directory Directory to load namespace classes from
      * @return return type
      */
-    final public function __construct( string $namespace,
-                                       string $directory,
-                                       string $namespaceClassFile = '' )
+    final public function __construct( string $namespace, string $directory )
     {
         // Sanitize and Exit on bad parameters
-        $namespace          = trim( $namespace );
-        $directory          = trim( $directory );
-        $namespaceClassFile = trim( $namespaceClassFile );
+        $namespace = trim( $namespace );
+        $directory = realpath( trim( $directory ));
         if ( empty( $namespace ) || empty( $directory )) {
             return;
         }
@@ -95,9 +81,8 @@ class Autoloader
         }
         
         // Set properties
-        $this->namespace          = $namespace;
-        $this->directory          = self::buildPath( [ $directory ] );
-        $this->namespaceClassFile = $namespaceClassFile;
+        $this->namespace = $namespace;
+        $this->directory = $directory;
         
         // Register the class auto loader for the namespace
         spl_autoload_register( function( string $class ) {
@@ -115,20 +100,15 @@ class Autoloader
      */
     protected function loadClass( string $class )
     {
-        // Load the main class for the namespace
-        if ( $class === $this->namespace ) {
-            include_once( $this->namespaceClassFile );
-        }
+        // Build path from class
+        $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
+        $pathFragments = explode( '\\', "{$relativeClass}.php" );
+        array_unshift( $pathFragments, $this->directory );
+        $path = self::buildPath( $pathFragments );
         
-        // Load the class. Do not use require_once, which halts the script,
-        // preventing multiple autoloaders from being registered.
-        else {
-            $relativeClass = substr( $class, strlen( $this->namespace ) + 1 );
-            $pathFragments = explode( '\\', "{$relativeClass}.php" );
-            $path          = $this->directory . self::buildPath( $pathFragments );
-            if ( file_exists( $path )) {
-                require_once( $path );
-            }
+        // Load file (if exists)
+        if ( file_exists( $path )) {
+            require_once( $path );
         }
     }
     
@@ -151,7 +131,7 @@ class Autoloader
         // Add trailing slash to directories
         $isPHPFile = ( '.php' == substr( $path, -4 ));
         if ( !$isPHPFile ) {
-            $path .= self::$pathDelimiter;
+            $path = realpath( $path ) . self::$pathDelimiter;
         }
         
         return $path;
