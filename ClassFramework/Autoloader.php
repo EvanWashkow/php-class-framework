@@ -5,19 +5,26 @@ namespace PHP\ClassFramework;
  * Automatically load classes from the namespace directory
  * 
  * Example:
+ *
  * MyClass.php
  * MyClass/
- *     MyClassComponent1.php
- *     MyClassComponent2.php
- *     MyClassComponent3.php
+ *     MySubClass.php
+ *     MySubClass/
+ *         AnotherClass.php
  *
- * ================================ MyClass.php ================================
+ *------------------------------------------------------------------------------
  *
- * // Register auto-loader
- * new \ClassFramework\AutoLoader( 'MyClass', __DIR__ . '/MyClass' );
- *
- * // Automatically loads subcomponents!
- * \MyClass\MyClassComponent3::Function();
+ * new \PHP\ClassFramework\Autoloader( 'MyClass', __DIR__ . '/MyClass' );
+ * 
+ * class MyClass
+ * {
+ *     public static function MyFunction()
+ *     {
+ *         // Auto-loads class from current namespace directory
+ *         \MyClass\MySubClass::DoWork();
+ *         \MyClass\MySubClass\AnotherClass::DoMoreWork();
+ *     }
+ * }
  */
 class Autoloader
 {
