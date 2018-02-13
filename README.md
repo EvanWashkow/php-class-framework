@@ -7,7 +7,7 @@ MyClass.php
 MyClass/
     MySubClass.php
     MySubClass/
-        SomeOtherClass.php
+        AnotherClass.php
 ```
 
 
@@ -24,7 +24,7 @@ class MyClass
     {
         // Auto-loads class from current namespace directory
         \MyClass\MySubClass::DoWork();
-        \MyClass\MySubClass\SomeOtherClass::DoMoreWork();
+        \MyClass\MySubClass\AnotherClass::DoMoreWork();
     }
 }
 ```
@@ -44,7 +44,7 @@ class MyClass extends \PHP\ClassFramework\FrameworkClass
         // Load classes / files from the current directory
         self::include([
             'MySubClass',
-            'MySubClass/SomeOtherClass'
+            'MySubClass/AnotherClass'
         ]);
     }
 }
