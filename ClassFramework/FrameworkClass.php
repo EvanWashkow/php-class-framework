@@ -2,18 +2,30 @@
 namespace PHP\ClassFramework;
 
 /**
- * Defines a member of the class framework having subcomponents
- *
- * By default, subcomponents are included from the folder with the same name as
- * the class current class. To modify this behavior, extend this class, and then
- * override the BaseClass functions appropriately.
+ * Defines a single class in the namespaced framework, providing additional
+ * helpers for the current class such as loading sub-component classes / files.
  * 
  * Example:
- * MyClass.php                  // class MyClass extends \ClassFramework\Framework
+ *
+ * MyClass.php
  * MyClass/
- *     MyClassComponent1.php
- *     MyClassComponent2.php
- *     MyClassComponent3.php
+ *     MySubClass.php
+ *     MySubClass/
+ *         AnotherClass.php
+ *
+ *------------------------------------------------------------------------------
+ *
+ * class MyClass extends \PHP\ClassFramework\FrameworkClass
+ * {
+ *     public static function MyFunction()
+ *     {
+ *         // Load classes / files from the current directory
+ *         self::include([
+ *             'MySubClass',
+ *             'MySubClass/SomeOtherClass'
+ *         ]);
+ *     }
+ * }
  */
 class FrameworkClass
 {
